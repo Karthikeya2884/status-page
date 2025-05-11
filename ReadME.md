@@ -137,13 +137,3 @@ To deploy the application:
 3. Update the `DATABASE_URL` in `app/database.py` to use a production-ready database (e.g., PostgreSQL).
 
 ---
-
-## License
-
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE.md) file for details.
-
----
-
-## Contact
-
-For questions or feedback, please reach out to **karthikeya@example.com**.
