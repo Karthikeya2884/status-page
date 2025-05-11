@@ -1,30 +1,33 @@
 from fastapi import FastAPI
-import httpx
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from app.sockets import create_socket_manager
+from app.routes import router
 
+DATABASE_URL = "sqlite:///./status_page.db"  # Replace with your DB URL
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+# Dependency for DB sessions
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+Base.metadata.create_all(bind=engine)
+
+# Initialize FastAPI app
 app = FastAPI()
 
-# Base URL for JokeAPI
-JOKE_API_URL = "https://v2.jokeapi.dev/joke/Any"
+# Initialize WebSocket Manager with the app
+socket_manager = create_socket_manager(app)
 
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the Random Joke Generator!"}
-
-@app.get("/joke")
-async def get_joke():
-    """
-    Fetch a random joke from the JokeAPI.
-    """
-    async with httpx.AsyncClient() as client:
-        response = await client.get(JOKE_API_URL)
-        if response.status_code == 200:
-            joke_data = response.json()
-            # Handle single-part and two-part jokes
-            if joke_data.get("type") == "single":
-                return {"joke": joke_data.get("joke")}
-            elif joke_data.get("type") == "twopart":
-                return {
-                    "setup": joke_data.get("setup"),
+# Include API Routes
+app.include_router(router)
                     "delivery": joke_data.get("delivery"),
                 }
         else:
