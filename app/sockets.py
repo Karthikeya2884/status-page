@@ -1,3 +1,4 @@
 from fastapi_socketio import SocketManager
 
-socket_manager = SocketManager(app=None)
+def create_socket_manager(app):
+    return SocketManager(app=app)
