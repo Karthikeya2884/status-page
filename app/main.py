@@ -23,11 +23,13 @@ Base.metadata.create_all(bind=engine)
 # Initialize FastAPI app
 app = FastAPI()
 
+# Root route for the app
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the Status Page API!"}
+
 # Initialize WebSocket Manager with the app
 socket_manager = create_socket_manager(app)
 
 # Include API Routes
 app.include_router(router)
-
-# Correct indentation for joke-related logic (if applicable)
-# Ensure all blocks are consistently aligned and indented.
