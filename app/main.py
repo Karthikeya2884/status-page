@@ -28,7 +28,6 @@ socket_manager = create_socket_manager(app)
 
 # Include API Routes
 app.include_router(router)
-                    "delivery": joke_data.get("delivery")
-                }
-        else:
-            return {"error": "Failed to fetch a joke. Please try again later."}
+
+# Correct indentation for joke-related logic (if applicable)
+# Ensure all blocks are consistently aligned and indented.
