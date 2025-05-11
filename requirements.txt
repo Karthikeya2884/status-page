@@ -12,6 +12,7 @@ pydantic
 
 # WebSocket support
 python-socketio
+fastapi-socketio
 
 # Optional: Clerk or other authentication packages
 python-jose
