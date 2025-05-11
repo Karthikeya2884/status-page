@@ -1,0 +1,22 @@
+# FastAPI framework
+fastapi
+
+# ASGI server
+uvicorn[standard]
+
+# Database ORM
+sqlalchemy
+
+# Data validation and serialization
+pydantic
+
+# WebSocket support
+python-socketio
+
+# Optional: Clerk or other authentication packages
+python-jose
+passlib[bcrypt]
+
+# Testing
+pytest
+requests
