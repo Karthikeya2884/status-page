@@ -4,6 +4,14 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from app.sockets import create_socket_manager
 from app.routes import router
+from pydantic import BaseModel
+
+class User(BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        from_attributes = True
 
 DATABASE_URL = "sqlite:///./status_page.db"  # Replace with your DB URL
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
