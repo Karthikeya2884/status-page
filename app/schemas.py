@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
-class ExampleSchema(BaseModel):
-    id: int
+class ServiceCreate(BaseModel):
     name: str
+    status: str
